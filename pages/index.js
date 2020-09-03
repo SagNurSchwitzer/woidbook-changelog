@@ -1,65 +1,54 @@
 import Head from 'next/head'
+import Navbar from '../components/navbar'
 import styles from '../styles/Home.module.css'
+import { Container, Row } from 'react-bootstrap'
+import Changelog from '../components/changelog'
 
-export default function Home() {
+function Home({ changelogs }) {
+
+  var changelogItems = changelogs.map((item) => <Changelog changelog={ item }  />)
+
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Changelog | WoidBook</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Navbar />
+      <Container fluid="md">
+        <Row className="justify-content-xs-center">
+          {/* BOX */}
+          <div className={styles.container}>
+            {/* HEADING */}
+            <h2 className={styles.heading}>Changelogs</h2>
+            <div className={styles.divider} />
+            <p className={styles.subheading}>Bleib immer auf dem neusten Stand der Entwicklung von WoidBook</p>
+            {/* END HEADING */}
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+            <div className={styles.changelogs}>  
+              {changelogItems}
+            </div>
+          </div>
+          {/* END BOX */}
+        </Row>
+      </Container>
     </div>
   )
 }
+
+export async function getStaticProps() {
+
+  const res = await fetch('http://localhost:8000/v1/changelog/get')
+
+  if(res.status != 200) return {props: {changelogs: []}};
+
+  const body = await res.json();
+
+  return {
+    props: {
+      changelogs: body.changelogs
+    }
+  }
+}
+
+export default Home

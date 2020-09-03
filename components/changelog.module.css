@@ -1,0 +1,20 @@
+.changelog {
+   margin-top: 2em; 
+}
+
+.version {
+    font-weight: 500;
+}
+
+.date {
+    color: rgb(155, 155, 155) !important;
+}
+
+.content {
+    margin-top: 10px;
+}
+
+.divider {
+    margin-bottom: 10px;
+    border-bottom: 2px solid rgb(15, 15, 15);
+}
