@@ -38,7 +38,7 @@ function Home({ changelogs }) {
 
 export async function getStaticProps() {
 
-  const res = await fetch('http://localhost:8000/v1/changelog/get')
+  const res = await fetch('https://api.woidbook.com/v1/changelog/get')
 
   if(res.status != 200) return {props: {changelogs: []}};
 
@@ -47,7 +47,8 @@ export async function getStaticProps() {
   return {
     props: {
       changelogs: body.changelogs
-    }
+    },
+    revalidate: 1
   }
 }
 
