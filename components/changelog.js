@@ -4,11 +4,11 @@ import { Badge } from 'react-bootstrap'
 export default function Changelog(props) {
 
     const iosItems = props.changelog.ios.map((text) =>
-        <li key={text.content}>{text.type == "ADDED" ? <Badge variant="success">ADDED</Badge> : <Badge variant="danger">REMOVED</Badge>} {text.content}</li>
+        <li key={Math.random()}>{text.type == "ADDED" ? <Badge variant="success">ADDED</Badge> : <Badge variant="danger">REMOVED</Badge>} {text.content}</li>
     );
 
     const androidItems = props.changelog.android.map((text) =>
-        <li key={text.content}>{text.type == "ADDED" ? <Badge variant="success">ADDED</Badge> : <Badge variant="danger">REMOVED</Badge>} {text.content}</li>
+        <li key={Math.random()}>{text.type == "ADDED" ? <Badge variant="success">ADDED</Badge> : <Badge variant="danger">REMOVED</Badge>} {text.content}</li>
     );
 
     return (
